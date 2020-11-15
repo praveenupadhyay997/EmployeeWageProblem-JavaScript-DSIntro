@@ -45,6 +45,8 @@ function GetEmployeeHour(employeeTypeCheck)
 /// Counter for the employee working hours and working days
 let totalEmployeeHour = 0;
 let totalWorkingDays = 0;
+/// Array to store the daily wage of the employee
+let employeeDailyWage = new Array();
 /**
  * * Random number generates a real number between 0 and 1(exclusive)
  * * switch case for checking the employee type
@@ -62,9 +64,24 @@ while(totalWorkingDays < NUM_OF_WORKING_DAYS && totalEmployeeHour <= MAX_HRS_IN_
     totalWorkingDays++;
     /// Generating the type of employee using random function
     let employeeTypeCheck = Math.floor((Math.random()*10) % 3);
+    /// Variable to store the employee working hours
+    let employeeHours = GetEmployeeHour(employeeTypeCheck);
     /// Incrementing the employee Hour from the value returned from the get employee hour class
-    employeeHour += GetEmployeeHour(employeeTypeCheck);
+    totalEmployeeHour += employeeHours;
+    /// UC6 -- Adding the daily wage to the array
+    employeeDailyWage.push(calculateDailyWageOfEmployee(employeeHours));
 }
 /// Computing the employee wage
-let employeeWage = employeeHour * WAGE_PER_HOUR;
-console.log("Employee Wage :" + employeeWage);
+let employeeWage = calculateDailyWageOfEmployee(totalEmployeeHour);
+/// Printing the result of the calculation of the employee wages
+console.log("Total Working days = "+ totalWorkingDays + "  Total Employee working hours = " + totalEmployeeHour + "  Employee Wage :" + employeeWage);
+/**
+ * Method to calculate the daily wage or the total wage when passed with working hours
+ * @param {Pass the working hours} employeeHours 
+ */
+function calculateDailyWageOfEmployee(employeeHours)
+{
+    return (employeeHours * WAGE_PER_HOUR);
+}
+/// Printing the daily wage array
+console.log("Daily Wage of Employee --->\n" + employeeDailyWage)
