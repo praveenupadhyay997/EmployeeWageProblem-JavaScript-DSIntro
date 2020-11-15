@@ -47,6 +47,8 @@ let totalEmployeeHour = 0;
 let totalWorkingDays = 0;
 /// Array to store the daily wage of the employee
 let employeeDailyWage = new Array();
+/// Map to store the daily wage of the employee
+let employeeDailyWageMap = new Map();
 /**
  * * Random number generates a real number between 0 and 1(exclusive)
  * * switch case for checking the employee type
@@ -70,6 +72,8 @@ while(totalWorkingDays < NUM_OF_WORKING_DAYS && totalEmployeeHour <= MAX_HRS_IN_
     totalEmployeeHour += employeeHours;
     /// UC6 -- Adding the daily wage to the array
     employeeDailyWage.push(calculateDailyWageOfEmployee(employeeHours));
+    /// UC8 -- Adding the daily wage to the map
+    employeeDailyWageMap.set(totalWorkingDays, calculateDailyWageOfEmployee(employeeHours));
 }
 /// Computing the employee wage
 let employeeWage = calculateDailyWageOfEmployee(totalEmployeeHour);
@@ -85,6 +89,13 @@ function calculateDailyWageOfEmployee(employeeHours)
 }
 /// Printing the daily wage array
 console.log("Daily Wage of Employee --->\n" + employeeDailyWage);
+/// Printing the daily wage map
+console.log("Daily Wage of Employee as Map --->\n");
+/// Entries convert the map element to the key value object
+/// Iterating which can print the wage
+var mapEntries = employeeDailyWageMap.entries();
+for(var element of mapEntries) 
+console.log(element);
 
 /// UC 7 --> Using the array helper class to perform operations
 let totalEmployeeWage = 0;
@@ -165,3 +176,7 @@ function TotalWorkingDays(numberOfDays, dailyWage)
 }
 /// Printing the result of the reduce array helper operation
 console.log("Number of Days the employee worked for -->" + employeeDailyWage.reduce(TotalWorkingDays, 0));
+
+/// UC8 -- Printing the total wage using the map of employee wage and working days
+/// Basically converting the values part of the map to the array object using from and then using the reduce array helper function
+console.log("Total Wage of Employee using map of employee -->" + Array.from(employeeDailyWageMap.values()).reduce(totalWageResult, 0));
