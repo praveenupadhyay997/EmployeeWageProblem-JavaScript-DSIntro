@@ -84,4 +84,84 @@ function calculateDailyWageOfEmployee(employeeHours)
     return (employeeHours * WAGE_PER_HOUR);
 }
 /// Printing the daily wage array
-console.log("Daily Wage of Employee --->\n" + employeeDailyWage)
+console.log("Daily Wage of Employee --->\n" + employeeDailyWage);
+
+/// UC 7 --> Using the array helper class to perform operations
+let totalEmployeeWage = 0;
+/// Defining the callback function for the helper functions
+function sum(dailyWage)
+{
+    totalEmployeeWage += dailyWage;
+}
+function totalWageResult(totalWage, dailyWage)
+{
+    return totalWage + dailyWage;
+}
+/// UC-7a : Using the foreach and reduce array helper function
+employeeDailyWage.forEach(sum, 0);
+console.log("Employee daily wage using foreach = " + totalEmployeeWage);
+console.log("Employee daily wage using reduce = " + employeeDailyWage.reduce(totalWageResult, 0));
+
+/// UC-7b : To show the day with daily wage using the array map helper function
+let dayCounter = 0;
+/// Defining the callback function for the map array helper function
+function MapDayWithDailyWage(dailyWage)
+{
+    /// Incrementing the day counter
+    dayCounter++;
+    /// Returning the string value to the map
+    return dayCounter + "=" + dailyWage;
+}
+/// Using the array map helper function to add the mapped element of the day with daily wage
+let dayWithDailyWageMap = employeeDailyWage.map(MapDayWithDailyWage);
+/// Printing the array map data of day with daily wage
+console.log("Day with Daily Wages Map ---> " + dayWithDailyWageMap);
+
+/// UC 7c : To show the day when the employee earned the full time wage
+function FullTimeWageOfEmployee(dailyWage)
+{
+    /// Check if the map array element contains the full time description
+    return dailyWage.includes("160");
+}
+/// Using the filter helper function to pass each element of the day to daily wage map and get only the full time earned wage
+let fullDayWageForEmployeeArray = dayWithDailyWageMap.filter(FullTimeWageOfEmployee);
+/// Printing the result of the filter operation
+console.log("Days when the employee earned the full time wage -->" + fullDayWageForEmployeeArray);
+
+/// UC 7d : To check for the first occurrence of the full time wage earned
+function FindFirstFullTimeOccurence(dailyWage)
+{
+    /// Check if the map array element contains the full time description
+    return dailyWage.includes("160");
+}
+/// Printing the result of the find operation
+console.log("First day when the employee earned the full time wage --> " + dayWithDailyWageMap.find(FindFirstFullTimeOccurence));
+
+/// UC 7e : To check for every full time wage in map has full time wage or not
+function IsAllFullTimeWage(dailyWageFromMap)
+{
+    /// Check if the map array element contains the full time description
+    return dailyWageFromMap.includes("160");
+}
+/// Printing the result of the every operation
+console.log("Checking whether all the full time contains full time wage --> " + fullDayWageForEmployeeArray.every(IsAllFullTimeWage));
+
+/// UC 7f : Check whether there is any part time wages
+function FindWhetherThereIsPartTime(dailyWage)
+{
+    /// Check if the map array element contains the full time description
+    return dailyWage.includes("80");
+}
+/// Printing the result of the some array helper operation
+console.log("Check if any part time wage or not -->" + dayWithDailyWageMap.some(FindWhetherThereIsPartTime));
+
+/// UC 7f : Find the number of hte days the employee has worked for each
+/// Logic --> if the employee daily wage = 0 i.e. the employee was absent on that day then return the current value only
+function TotalWorkingDays(numberOfDays, dailyWage)
+{
+    if(dailyWage > 0)
+    return numberOfDays+1;
+    return numberOfDays;
+}
+/// Printing the result of the reduce array helper operation
+console.log("Number of Days the employee worked for -->" + employeeDailyWage.reduce(TotalWorkingDays, 0));
